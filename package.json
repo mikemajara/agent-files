@@ -1,0 +1,47 @@
+{
+  "name": "agent-files",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Template: Eve agent + files-sdk storage + DuckDB CSV catalog",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "dev": "next dev --hostname 0.0.0.0 --port 3460 --webpack",
+    "build": "next build --webpack",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.1105.0",
+    "@aws-sdk/s3-presigned-post": "^3.1105.0",
+    "@aws-sdk/s3-request-presigner": "^3.1105.0",
+    "@codemirror/lang-sql": "^6.10.0",
+    "@codemirror/state": "^6.7.1",
+    "@codemirror/view": "^6.43.8",
+    "@uiw/react-codemirror": "^4.25.11",
+    "@vercel/blob": "^2.7.0",
+    "ai": "^7.0.55",
+    "duckdb": "^1.4.4",
+    "eve": "^0.29.5",
+    "files-sdk": "^2.2.3",
+    "next": "16.3.0",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.3.0",
+    "tailwindcss": "^4",
+    "typescript": "^5",
+    "vercel": "^58.7.1"
+  },
+  "allowScripts": {
+    "duckdb@1.4.4": true
+  }
+}
