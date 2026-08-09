@@ -2,10 +2,7 @@
   "name": "create-agent-files",
   "version": "0.1.0",
   "description": "Scaffold an Agent Files app (Eve + files-sdk + DuckDB)",
-  "type": "module",
-  "bin": {
-    "create-agent-files": "./bin/create-agent-files.js"
-  },
+  "bin": "./bin/create-agent-files.js",
   "files": [
     "bin",
     "README.md"

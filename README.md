@@ -56,5 +56,14 @@ npm start
 
 ```bash
 cd packages/create-agent-files
+npm login
 npm publish --access public
+```
+
+Or add an `NPM_TOKEN` repo secret and run the **Publish create-agent-files** GitHub Action / create a GitHub Release.
+
+Until published, run the scaffolder from a checkout:
+
+```bash
+node /path/to/agent-files/packages/create-agent-files/bin/create-agent-files.js my-app --storage vercel
 ```
