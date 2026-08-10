@@ -162,10 +162,12 @@ Created ${name}
 Storage: ${storage}
 Env stub: .env.local (from .env.example)
 
-Next:
-  - Fill credentials for ${storage} (see .env.example)
-  - Ask your coding agent to run skill: provision-vercel / provision-storage
-  - Or: npx vercel link && npx vercel deploy
+Next (agent-ready Companion):
+  - Ask your coding agent to run skill: provision-vercel
+    (vercel link + vercel env pull → VERCEL_OIDC_TOKEN for AI Gateway)
+  - Or manually: npx vercel link --yes && npx vercel env pull .env.local --yes
+  - Storage credentials: skill provision-storage if not using local
+  - Deploy only if you want a Vercel URL (same skill, optional step)
 `);
 }
 

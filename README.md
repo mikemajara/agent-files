@@ -39,8 +39,10 @@ If cloud credentials are missing, the app **falls back to local** so development
 
 Point Cursor (or another coding agent) at:
 
-- `.agents/skills/provision-vercel` — link project, env, deploy  
+- `.agents/skills/provision-vercel` — **link + `vercel env pull` (OIDC)** so Companion has AI Gateway; deploy only if asked  
 - `.agents/skills/provision-storage` — Blob / R2 / local setup  
+
+Machine-specific HTTPS (Caddy / `*.mgl.dev`) is **not** part of these skills.
 
 See [AGENTS.md](./AGENTS.md).
 
