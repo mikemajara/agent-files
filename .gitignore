@@ -46,5 +46,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# CLI temp clones
+# CLI temp clones + npm pack artifacts
 .create-agent-files-*
+*.tgz

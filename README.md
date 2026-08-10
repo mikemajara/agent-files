@@ -56,15 +56,42 @@ npm start
 
 ## Publish CLI (maintainers)
 
+Package: `packages/create-agent-files` → npm name **`create-agent-files`**.
+
+### Before every publish
+
+```bash
+# from repo root — syntax check + npm pack dry-run
+node scripts/prepare-publish.mjs
+# or: npm run prepare-publish -C packages/create-agent-files
+```
+
+Bump `version` in `packages/create-agent-files/package.json` when republishing
+(npm rejects duplicate versions). Commit and push.
+
+### Publish
+
+**Preferred — GitHub Actions** (needs repo secret `NPM_TOKEN` = npm Automation token with publish rights):
+
+1. Actions → **Publish create-agent-files** → Run workflow  
+   **or** `gh release create create-agent-files-v0.1.0 --generate-notes`
+2. Workflow runs `prepare-publish.mjs`, then `npm publish --access public --provenance`
+
+**Local:**
+
 ```bash
 cd packages/create-agent-files
 npm login
-npm publish --access public
+npm publish
 ```
 
-Or add an `NPM_TOKEN` repo secret and run the **Publish create-agent-files** GitHub Action / create a GitHub Release.
+### After publish
 
-Until published, run the scaffolder from a checkout:
+```bash
+npx create-agent-files@latest my-app --storage local -y
+```
+
+Until published, run from a checkout:
 
 ```bash
 node /path/to/agent-files/packages/create-agent-files/bin/create-agent-files.js my-app --storage vercel

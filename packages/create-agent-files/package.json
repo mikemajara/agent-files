@@ -2,13 +2,23 @@
   "name": "create-agent-files",
   "version": "0.1.0",
   "description": "Scaffold an Agent Files app (Eve + files-sdk + DuckDB)",
-  "bin": "./bin/create-agent-files.js",
+  "type": "module",
+  "bin": {
+    "create-agent-files": "./bin/create-agent-files.js"
+  },
   "files": [
     "bin",
     "README.md"
   ],
+  "scripts": {
+    "prepack": "node --check bin/create-agent-files.js",
+    "prepare-publish": "node ../../scripts/prepare-publish.mjs"
+  },
   "engines": {
     "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "keywords": [
     "eve",
@@ -23,6 +33,10 @@
     "url": "git+https://github.com/mikemajara/agent-files.git",
     "directory": "packages/create-agent-files"
   },
+  "bugs": {
+    "url": "https://github.com/mikemajara/agent-files/issues"
+  },
+  "homepage": "https://github.com/mikemajara/agent-files#readme",
   "license": "MIT",
   "dependencies": {
     "prompts": "^2.4.2"
