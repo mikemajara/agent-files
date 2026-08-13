@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "skills": {
+    "backlog": {
+      "source": "mikemajara/skills",
+      "ref": "backlog-v2",
+      "sourceType": "github",
+      "skillPath": "skills/backlog/SKILL.md",
+      "computedHash": "b913a986f947596602b0eeffd6f130d3f7539831c3808755a7036a18ad3fd6ce"
+    },
+    "backlog-plan": {
+      "source": "mikemajara/skills",
+      "ref": "backlog-v2",
+      "sourceType": "github",
+      "skillPath": "skills/backlog-plan/SKILL.md",
+      "computedHash": "0e1e11685138c73bcdc7371c8eb8d65fe9fd6e1fdec44b6caa7636f7fea8b821"
+    },
+    "backlog-refine": {
+      "source": "mikemajara/skills",
+      "ref": "backlog-v2",
+      "sourceType": "github",
+      "skillPath": "skills/backlog-refine/SKILL.md",
+      "computedHash": "566ba904b4cac0fcdeb4abf3773a7ca08597a96f86517f59665920762ee5bc16"
+    },
+    "backlog-research": {
+      "source": "mikemajara/skills",
+      "ref": "backlog-v2",
+      "sourceType": "github",
+      "skillPath": "skills/backlog-research/SKILL.md",
+      "computedHash": "0270d995ea8bc681992dffc129ec886661c43ecd842216c09bc00514555d1332"
+    },
+    "sdlc-first-principles": {
+      "source": "mikemajara/skills",
+      "ref": "backlog-v2",
+      "sourceType": "github",
+      "skillPath": "skills/sdlc-first-principles/SKILL.md",
+      "computedHash": "583f729874226cb2579dd7b87460b38b0d81fbbb350758d146662aad3fcaa9aa"
+    }
+  }
+}

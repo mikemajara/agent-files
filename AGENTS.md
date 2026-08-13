@@ -1,13 +1,12 @@
 # Agent Files
 
-Template for **agent apps that use file storage as the database**, queried with DuckDB, shipped with an Eve companion.
+Template for **agent apps that use file storage as the database** — JSON (+ markdown) on Blob / R2 / local — shipped with an Eve companion.
 
 ## Architecture
 
 - **Storage:** `files-sdk` adapters — Vercel Blob (default), Cloudflare R2, or local `./data`
-- **Catalog:** CSV headers + DuckDB types + `catalog.json` sidecar (`GET /api/schema`)
-- **Query:** in-memory DuckDB per request (`POST /api/query`)
-- **Agent:** `agent/` Eve tools — `list_tables`, `describe_table`, `run_sql`, `add_note`
+- **State:** JSON files under `STORAGE_PREFIX` (seed demo: `notes.json`) via `src/lib/json-store.ts` + domain modules
+- **Agent:** `agent/` Eve tools — `list_notes`, `get_note`, `add_note`, `update_note`
 
 ## When to use which skill
 
@@ -15,9 +14,9 @@ Template for **agent apps that use file storage as the database**, queried with 
 | --- | --- |
 | Link Vercel + AI Gateway so Companion works (OIDC pull); optional deploy | `.agents/skills/provision-vercel` |
 | Create Blob store / switch to R2 or local | `.agents/skills/provision-storage` |
-| Add a new CSV table | Extend seed + catalog; register via storage prefix `*.csv` |
+| Add a new entity | Add a JSON module under `src/lib/` + domain tools; seed via `ensureSeeded` / missing-key fallback |
 
-`provision-vercel` Definition of Done = linked project + Gateway creds (`VERCEL_OIDC_TOKEN` via `vercel env pull`, or `AI_GATEWAY_API_KEY`) + `/api/schema` + `/eve/v1/health`. It does **not** include machine-specific HTTPS (Caddy / `*.mgl.dev` / portless).
+`provision-vercel` Definition of Done = linked project + Gateway creds (`VERCEL_OIDC_TOKEN` via `vercel env pull`, or `AI_GATEWAY_API_KEY`) + `GET /api/notes` + `/eve/v1/health`. It does **not** include machine-specific HTTPS (Caddy / `*.mgl.dev` / portless).
 
 ## Local
 
@@ -25,7 +24,6 @@ Template for **agent apps that use file storage as the database**, queried with 
 cp .env.example .env.local
 # STORAGE_BACKEND=local for zero-cloud, or vercel/r2 with credentials
 npm install
-npm approve-scripts   # allow duckdb native build if prompted
 # Companion needs Gateway: ask agent for provision-vercel (vercel link + env pull)
 npm run dev
 ```

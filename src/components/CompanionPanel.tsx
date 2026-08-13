@@ -63,7 +63,7 @@ export function CompanionPanel({ open, onClose }: CompanionPanelProps) {
           <div className="min-w-0 flex-1">
             <p className="font-medium">Agent Files companion</p>
             <p className="truncate text-xs text-muted">
-              DuckDB tools · status: {agent.status}
+              Notes tools · status: {agent.status}
             </p>
           </div>
           <button
@@ -87,8 +87,9 @@ export function CompanionPanel({ open, onClose }: CompanionPanelProps) {
         <div className="min-h-0 flex-1 space-y-3 overflow-y-auto px-4 py-4">
           {agent.data.messages.length === 0 ? (
             <p className="text-sm leading-relaxed text-muted">
-              Ask about your notes, run SQL, or append a note. I discover tables
-              via the catalog, then query with DuckDB — I won&apos;t invent data.
+              Ask me to list, read, add, or update notes. I use domain tools on{" "}
+              <code className="font-mono">notes.json</code> — I won&apos;t invent
+              data.
             </p>
           ) : null}
 
@@ -130,7 +131,7 @@ export function CompanionPanel({ open, onClose }: CompanionPanelProps) {
             value={draft}
             onChange={(e) => setDraft(e.target.value)}
             rows={3}
-            placeholder="What tags appear most? Or: add a note about the launch checklist…"
+            placeholder="List my notes… Or: add a note about the launch checklist…"
             className="w-full resize-none rounded-md border border-line bg-background px-3 py-2 text-sm"
             onKeyDown={(e) => {
               if (e.key === "Enter" && !e.shiftKey) {

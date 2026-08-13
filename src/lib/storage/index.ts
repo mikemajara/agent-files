@@ -1,9 +1,4 @@
-import {
-  catalogKey,
-  notesKey,
-  SEED_CATALOG,
-  SEED_NOTES,
-} from "@/lib/schema";
+import { notesKey, SEED_NOTES } from "@/lib/schema";
 import { localAdapter } from "./local";
 import { r2Adapter, r2Configured } from "./r2";
 import {
@@ -46,20 +41,19 @@ export function getStorage(): StorageAdapter {
 
 let ensurePromise: Promise<void> | null = null;
 
-/** Idempotently seed notes.csv + catalog.json if missing. */
+/** Idempotently seed notes.json if missing. */
 export function ensureSeeded(): Promise<void> {
   if (!ensurePromise) {
     ensurePromise = (async () => {
       const storage = getStorage();
-      const seeds: Array<[string, string]> = [
-        [notesKey(), SEED_NOTES],
-        [catalogKey(), SEED_CATALOG],
-      ];
-      for (const [key, body] of seeds) {
-        const existing = await storage.readText(key);
-        if (existing === null) {
-          await storage.writeText(key, body);
-        }
+      const key = notesKey();
+      const existing = await storage.readText(key);
+      if (existing === null) {
+        await storage.writeText(
+          key,
+          `${JSON.stringify(SEED_NOTES, null, 2)}\n`,
+          "application/json; charset=utf-8",
+        );
       }
     })().catch((err) => {
       ensurePromise = null;

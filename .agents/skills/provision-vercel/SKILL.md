@@ -20,7 +20,7 @@ From the app root, after this skill:
 1. `.vercel/` exists (project linked)
 2. `.env.local` has **either** a non-empty `VERCEL_OIDC_TOKEN` (preferred) **or** `AI_GATEWAY_API_KEY`
 3. `npm run dev` (or `pnpm`) serves the app on its configured host port
-4. Smoke: `GET /api/schema` and `GET /eve/v1/health` succeed
+4. Smoke: `GET /api/notes` and `GET /eve/v1/health` succeed
 5. Companion can start a session (Gateway auth works)
 
 **Out of scope (do not do here):** Caddy, `*.mgl.dev`, UFW, portless, or any
@@ -112,12 +112,12 @@ npm run dev
 ```
 
 ```bash
-curl -sS "http://127.0.0.1:<port>/api/schema" | head -c 400
+curl -sS "http://127.0.0.1:<port>/api/notes" | head -c 400
 curl -sS "http://127.0.0.1:<port>/eve/v1/health"
 ```
 
 Use the port from `package.json` `dev` script (template default `3460`). Expect
-schema JSON and Eve `ok`/`ready`. Then open Companion and confirm a turn does
+notes JSON and Eve `ok`/`ready`. Then open Companion and confirm a turn does
 not fail with “AI Gateway received no credentials.”
 
 ### 6. Deploy (only if requested)
@@ -137,7 +137,7 @@ npx vercel deploy -y --no-wait
 Poll with `npx vercel inspect <url>` until Ready. Smoke:
 
 ```bash
-curl -sS "$URL/api/schema" | head -c 400
+curl -sS "$URL/api/notes" | head -c 400
 curl -sS "$URL/eve/v1/health"
 ```
 
@@ -148,8 +148,5 @@ any missing env, and deployment URL(s) **only if** step 6 ran.
 
 ## Notes
 
-- Build uses `next build --webpack` (DuckDB native binary; Turbopack panics on
-  node-pre-gyp).
-- `agent/agent.ts` must list `duckdb` under `build.externalDependencies` so Eve
-  does not bundle the native addon into authored tools.
+- Durable state is JSON files under `STORAGE_PREFIX` (seed: `notes.json`).
 - Do **not** configure `/srv`, Caddy, UFW, or `*.mgl.dev` in this skill.

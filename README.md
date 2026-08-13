@@ -2,13 +2,12 @@
 
 **GitHub template** + **`npx create-agent-files`** for agent apps that treat **object storage as the database**.
 
-- **Eve** companion (`agent/`) with catalog + SQL tools  
+- **Eve** companion (`agent/`) with domain tools over JSON state  
 - **files-sdk** storage: **Vercel Blob (default)**, Cloudflare R2, or local `./data`  
-- **DuckDB** in-memory queries over CSV views  
-- **Schema catalog** shared by SQL autocomplete and the agent  
+- **JSON (+ markdown)** for durable state — typed helpers, not SQL  
 - **Agent skills** under `.agents/skills/` to provision Vercel + storage  
 
-Bolsa (stocks) remains a separate specialized demo. This repo is the generic starter.
+Bolsa (stocks / DuckDB ledger) remains a separate specialized demo. This repo is the generic starter for household / personal agent apps.
 
 ## Quick start
 
@@ -35,6 +34,8 @@ Use this template on GitHub → clone → `npm install` → copy `.env.example` 
 
 If cloud credentials are missing, the app **falls back to local** so development works immediately.
 
+Seed demo state: `{STORAGE_PREFIX}/notes.json`.
+
 ## Agent provisioning
 
 Point Cursor (or another coding agent) at:
@@ -49,7 +50,7 @@ See [AGENTS.md](./AGENTS.md).
 ## Scripts
 
 ```bash
-npm run dev     # http://localhost:3460 (webpack — required for duckdb)
+npm run dev     # http://localhost:3460
 npm run build
 npm start
 ```
@@ -74,7 +75,7 @@ Bump `version` in `packages/create-agent-files/package.json` when republishing
 **Preferred — GitHub Actions** (needs repo secret `NPM_TOKEN` = npm Automation token with publish rights):
 
 1. Actions → **Publish create-agent-files** → Run workflow  
-   **or** `gh release create create-agent-files-v0.1.0 --generate-notes`
+   **or** `gh release create create-agent-files-v0.1.1 --generate-notes`
 2. Workflow runs `prepare-publish.mjs`, then `npm publish --access public --provenance`
 
 **Local:**
@@ -96,3 +97,5 @@ Until published, run from a checkout:
 ```bash
 node /path/to/agent-files/packages/create-agent-files/bin/create-agent-files.js my-app --storage vercel
 ```
+
+**Note:** the CLI clones this GitHub repo, so scaffolds pick up template changes after you push `main` — even before a CLI version bump.

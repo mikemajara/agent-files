@@ -1,0 +1,57 @@
+[
+  {
+    "name": "type:feat",
+    "color": "1D76DB",
+    "description": "New behavior, capability, surface area, or supported workflow"
+  },
+  {
+    "name": "type:fix",
+    "color": "D73A4A",
+    "description": "Broken, incorrect, confusing, or regressed behavior"
+  },
+  {
+    "name": "type:nit",
+    "color": "C5DEF5",
+    "description": "Small polish, copy, cleanup, tiny UX adjustment, or low-risk refinement"
+  },
+  {
+    "name": "priority:high",
+    "color": "B60205",
+    "description": "Important soon, blocks other work, or meaningfully affects core UX"
+  },
+  {
+    "name": "priority:medium",
+    "color": "FBCA04",
+    "description": "Valuable, but not urgent or blocking"
+  },
+  {
+    "name": "priority:low",
+    "color": "0E8A16",
+    "description": "Nice-to-have, opportunistic, or exploratory"
+  },
+  {
+    "name": "status:unknown",
+    "color": "D4C5F9",
+    "description": "Needs clarification, research, scoping, or acceptance criteria"
+  },
+  {
+    "name": "status:doing",
+    "color": "FBCA04",
+    "description": "Work actively in progress"
+  },
+  {
+    "name": "status:ready",
+    "color": "0E8A16",
+    "description": "Clear enough to implement without unresolved product decisions"
+  },
+  {
+    "name": "status:blocked",
+    "color": "5319E7",
+    "description": "Cannot proceed until a decision or dependency is resolved"
+  },
+  {
+    "name": "status:duplicate",
+    "color": "CFD3D7",
+    "description": "Tracks the same outcome as another issue"
+  }
+]

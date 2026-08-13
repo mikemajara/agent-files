@@ -1,16 +1,16 @@
 import { WorkspaceApp } from "@/components/WorkspaceApp";
-import { queryNotes } from "@/lib/duck";
+import { listNotes } from "@/lib/notes";
 import { storageBackend } from "@/lib/storage";
 
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  let notes: Record<string, unknown>[] = [];
+  let notes: Awaited<ReturnType<typeof listNotes>> = [];
   let backend = storageBackend();
   let initialError: string | null = null;
 
   try {
-    notes = await queryNotes();
+    notes = await listNotes();
     backend = storageBackend();
   } catch (err) {
     initialError = err instanceof Error ? err.message : "Failed to load";

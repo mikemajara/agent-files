@@ -1,43 +1,30 @@
 "use client";
 
 import { useCallback, useState } from "react";
-import { SqlEditor } from "@/components/SqlEditor";
 import { CompanionPanel } from "@/components/CompanionPanel";
 
 type Note = {
   id: string;
   created_at: string;
+  updated_at: string;
   title: string;
   body: string;
-  tags: string;
-};
-
-type Tab = "notes" | "query";
-
-type QueryResult = {
-  columns: string[];
-  rows: Record<string, unknown>[];
+  tags: string[];
 };
 
 type WorkspaceAppProps = {
-  initialNotes: Record<string, unknown>[];
+  initialNotes: Note[];
   initialBackend: string;
   initialError: string | null;
 };
-
-const SAMPLE_SQL = `SELECT tags, count(*) AS n
-FROM notes
-GROUP BY tags
-ORDER BY n DESC`;
 
 export function WorkspaceApp({
   initialNotes,
   initialBackend,
   initialError,
 }: WorkspaceAppProps) {
-  const [tab, setTab] = useState<Tab>("notes");
   const [backend, setBackend] = useState(initialBackend);
-  const [notes, setNotes] = useState(() => initialNotes as unknown as Note[]);
+  const [notes, setNotes] = useState(initialNotes);
   const [error, setError] = useState<string | null>(initialError);
   const [loading, setLoading] = useState(false);
 
@@ -45,10 +32,6 @@ export function WorkspaceApp({
   const [body, setBody] = useState("");
   const [tags, setTags] = useState("");
   const [saving, setSaving] = useState(false);
-
-  const [sql, setSql] = useState(SAMPLE_SQL);
-  const [queryResult, setQueryResult] = useState<QueryResult | null>(null);
-  const [querying, setQuerying] = useState(false);
   const [companionOpen, setCompanionOpen] = useState(false);
 
   const refresh = useCallback(async () => {
@@ -91,35 +74,13 @@ export function WorkspaceApp({
     }
   }
 
-  async function onRunQuery(e: React.FormEvent) {
-    e.preventDefault();
-    setQuerying(true);
-    setError(null);
-    try {
-      const res = await fetch("/api/query", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ sql }),
-      });
-      const json = await res.json();
-      if (!res.ok) throw new Error(json.error ?? "Query failed");
-      setQueryResult({ columns: json.columns, rows: json.rows });
-      if (json.backend) setBackend(json.backend);
-    } catch (err) {
-      setQueryResult(null);
-      setError(err instanceof Error ? err.message : "Query failed");
-    } finally {
-      setQuerying(false);
-    }
-  }
-
   return (
     <div className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-8 px-4 py-10 sm:px-6">
       <header className="flex flex-col gap-3 border-b border-line pb-6">
         <div className="flex flex-wrap items-end justify-between gap-3">
           <div>
             <p className="font-mono text-xs tracking-[0.2em] text-muted uppercase">
-              CSV · DuckDB · files-sdk · Eve
+              JSON · files-sdk · Eve
             </p>
             <h1 className="mt-1 text-4xl font-semibold tracking-tight sm:text-5xl">
               Agent Files
@@ -131,6 +92,13 @@ export function WorkspaceApp({
             </span>
             <button
               type="button"
+              onClick={() => void refresh()}
+              className="rounded-md px-3 py-1.5 text-sm text-muted ring-1 ring-line hover:bg-panel"
+            >
+              Refresh
+            </button>
+            <button
+              type="button"
               onClick={() => setCompanionOpen(true)}
               className="rounded-md bg-accent px-3 py-1.5 text-sm font-medium text-white"
             >
@@ -139,40 +107,11 @@ export function WorkspaceApp({
           </div>
         </div>
         <p className="max-w-2xl text-sm leading-relaxed text-muted">
-          Template for agent apps that persist state as files. Default storage
-          is Vercel Blob; R2 and local{" "}
-          <code className="font-mono">./data</code> are supported too.
+          Template for household agent apps that persist state as JSON files.
+          Default storage is Vercel Blob; R2 and local{" "}
+          <code className="font-mono">./data</code> work too.
         </p>
       </header>
-
-      <nav className="flex flex-wrap gap-2" aria-label="Sections">
-        {(
-          [
-            ["notes", "Notes"],
-            ["query", "SQL"],
-          ] as const
-        ).map(([id, label]) => (
-          <button
-            key={id}
-            type="button"
-            onClick={() => setTab(id)}
-            className={`rounded-md px-3 py-1.5 text-sm transition-colors ${
-              tab === id
-                ? "bg-accent text-white"
-                : "bg-panel text-foreground ring-1 ring-line hover:bg-accent-soft"
-            }`}
-          >
-            {label}
-          </button>
-        ))}
-        <button
-          type="button"
-          onClick={() => void refresh()}
-          className="ml-auto rounded-md px-3 py-1.5 text-sm text-muted ring-1 ring-line hover:bg-panel"
-        >
-          Refresh
-        </button>
-      </nav>
 
       {error ? (
         <div
@@ -185,9 +124,7 @@ export function WorkspaceApp({
 
       {loading ? (
         <p className="text-sm text-muted">Loading from storage…</p>
-      ) : null}
-
-      {!loading && tab === "notes" ? (
+      ) : (
         <div className="grid gap-6 lg:grid-cols-[320px_1fr]">
           <form
             onSubmit={onAddNote}
@@ -196,7 +133,7 @@ export function WorkspaceApp({
             <div>
               <h2 className="text-lg font-medium">Add note</h2>
               <p className="text-sm text-muted">
-                Appends a row and rewrites notes.csv.
+                Writes to <code className="font-mono">notes.json</code>.
               </p>
             </div>
             <label className="flex flex-col gap-1 text-sm">
@@ -223,7 +160,7 @@ export function WorkspaceApp({
               <input
                 value={tags}
                 onChange={(e) => setTags(e.target.value)}
-                placeholder="space separated"
+                placeholder="space or comma separated"
                 className="rounded-md border border-line bg-background px-2 py-1.5"
               />
             </label>
@@ -232,33 +169,35 @@ export function WorkspaceApp({
               disabled={saving}
               className="mt-1 rounded-md bg-accent px-3 py-2 text-sm font-medium text-white disabled:opacity-60"
             >
-              {saving ? "Writing CSV…" : "Append note"}
+              {saving ? "Saving…" : "Add note"}
             </button>
           </form>
 
           <section className="overflow-hidden rounded-lg bg-panel ring-1 ring-line">
             <div className="border-b border-line px-4 py-3">
               <h2 className="text-lg font-medium">Notes</h2>
-              <p className="text-sm text-muted">Raw notes.csv rows.</p>
+              <p className="text-sm text-muted">
+                From <code className="font-mono">notes.json</code>.
+              </p>
             </div>
             <ul className="divide-y divide-line">
               {notes.length === 0 ? (
                 <li className="px-4 py-6 text-sm text-muted">No notes yet.</li>
               ) : (
                 notes.map((n) => (
-                  <li key={String(n.id)} className="px-4 py-3">
+                  <li key={n.id} className="px-4 py-3">
                     <div className="flex flex-wrap items-baseline justify-between gap-2">
                       <h3 className="font-medium">{n.title}</h3>
                       <span className="font-mono text-[11px] text-muted">
-                        {String(n.created_at).slice(0, 19)}
+                        {String(n.updated_at ?? n.created_at).slice(0, 19)}
                       </span>
                     </div>
                     <p className="mt-1 text-sm text-muted whitespace-pre-wrap">
                       {n.body}
                     </p>
-                    {n.tags ? (
+                    {n.tags?.length ? (
                       <p className="mt-1 font-mono text-[11px] text-muted">
-                        {n.tags}
+                        {n.tags.join(" ")}
                       </p>
                     ) : null}
                   </li>
@@ -267,76 +206,7 @@ export function WorkspaceApp({
             </ul>
           </section>
         </div>
-      ) : null}
-
-      {!loading && tab === "query" ? (
-        <section className="flex flex-col gap-4 rounded-lg bg-panel p-4 ring-1 ring-line">
-          <div>
-            <h2 className="text-lg font-medium">SQL scratchpad</h2>
-            <p className="text-sm text-muted">
-              Read-only SELECT against CSV views (e.g.{" "}
-              <code className="font-mono">notes</code>). Max 500 rows.
-            </p>
-          </div>
-          <form onSubmit={onRunQuery} className="flex flex-col gap-3">
-            <SqlEditor value={sql} onChange={setSql} />
-            <div className="flex flex-wrap gap-2">
-              <button
-                type="submit"
-                disabled={querying}
-                className="rounded-md bg-accent px-3 py-2 text-sm font-medium text-white disabled:opacity-60"
-              >
-                {querying ? "Running…" : "Run query"}
-              </button>
-              <button
-                type="button"
-                onClick={() => setSql(SAMPLE_SQL)}
-                className="rounded-md px-3 py-2 text-sm text-muted ring-1 ring-line hover:bg-chip"
-              >
-                Reset sample
-              </button>
-            </div>
-          </form>
-
-          {queryResult ? (
-            <div className="overflow-x-auto rounded-md ring-1 ring-line">
-              <table className="w-full min-w-[480px] text-left text-sm">
-                <thead className="bg-chip/60 font-mono text-xs text-muted uppercase">
-                  <tr>
-                    {queryResult.columns.map((c) => (
-                      <th key={c} className="px-3 py-2 font-medium">
-                        {c}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {queryResult.rows.length === 0 ? (
-                    <tr>
-                      <td
-                        colSpan={Math.max(queryResult.columns.length, 1)}
-                        className="px-3 py-4 text-muted"
-                      >
-                        No rows.
-                      </td>
-                    </tr>
-                  ) : (
-                    queryResult.rows.map((row, i) => (
-                      <tr key={i} className="border-t border-line">
-                        {queryResult.columns.map((c) => (
-                          <td key={c} className="px-3 py-2 font-mono text-xs">
-                            {formatCell(row[c])}
-                          </td>
-                        ))}
-                      </tr>
-                    ))
-                  )}
-                </tbody>
-              </table>
-            </div>
-          ) : null}
-        </section>
-      ) : null}
+      )}
 
       <CompanionPanel
         open={companionOpen}
@@ -344,11 +214,4 @@ export function WorkspaceApp({
       />
     </div>
   );
-}
-
-function formatCell(value: unknown): string {
-  if (value === null || value === undefined) return "—";
-  if (value instanceof Date) return value.toISOString();
-  if (typeof value === "object") return JSON.stringify(value);
-  return String(value);
 }

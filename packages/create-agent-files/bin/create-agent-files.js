@@ -24,6 +24,10 @@ const IGNORE = new Set([
   ".vercel",
   "data",
   "packages",
+  // Maintainer-only: keep in repo, omit from scaffolds
+  ".backlog",
+  "skills-lock.json",
+  "agent/skills",
 ]);
 
 function parseArgs(argv) {
@@ -42,14 +46,15 @@ function parseArgs(argv) {
   return out;
 }
 
-function copyTemplate(from, to) {
+function copyTemplate(from, to, rel = "") {
   mkdirSync(to, { recursive: true });
   for (const entry of readdirSync(from, { withFileTypes: true })) {
-    if (IGNORE.has(entry.name)) continue;
+    const relPath = rel ? `${rel}/${entry.name}` : entry.name;
+    if (IGNORE.has(entry.name) || IGNORE.has(relPath)) continue;
     if (entry.name === ".env.local") continue;
     const src = path.join(from, entry.name);
     const dest = path.join(to, entry.name);
-    if (entry.isDirectory()) copyTemplate(src, dest);
+    if (entry.isDirectory()) copyTemplate(src, dest, relPath);
     else cpSync(src, dest);
   }
 }

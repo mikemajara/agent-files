@@ -31,16 +31,11 @@ On Vercel deployments, prefer OIDC: leave the long-lived token unset and ensure 
 3. Mirror env to Vercel (`BLOB_READ_WRITE_TOKEN` and/or store id) for all environments.
 4. Smoke (Node, from app root with env loaded):
 
-```js
-import { ensureSeeded, getStorage, storageBackend } from "./src/lib/storage/index.ts";
-// or hit GET /api/schema after npm run dev
-```
-
 ```bash
-curl -sS http://127.0.0.1:3460/api/schema
+curl -sS http://127.0.0.1:3460/api/notes
 ```
 
-Expect `backend: "vercel"` (or `"local"` if token missing).
+Expect `backend: "vercel"` (or `"local"` if token missing) and a `notes` array.
 
 ## Cloudflare R2
 
@@ -56,7 +51,7 @@ R2_BUCKET=agent-files
 ```
 
 Install peers if needed: `@aws-sdk/client-s3` (already in template).  
-Smoke via `/api/schema` → `backend: "r2"`.
+Smoke via `/api/notes` → `backend: "r2"`.
 
 ## Local
 
@@ -65,7 +60,7 @@ STORAGE_BACKEND=local
 STORAGE_PREFIX=workspace
 ```
 
-Files land in `./data/workspace/` (gitignored). First request seeds `notes.csv` + `catalog.json`.
+Files land in `./data/workspace/` (gitignored). First request seeds `notes.json`.
 
 ## Switching backends
 

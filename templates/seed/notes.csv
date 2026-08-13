@@ -1,4 +1,0 @@
-id,created_at,title,body,tags
-note_001,2024-06-01T10:00:00.000Z,Welcome,Agent Files stores durable state as CSV files in object storage and queries them with DuckDB.,intro template
-note_002,2024-06-02T14:30:00.000Z,Schema catalog,catalog.json holds human descriptions agents and SQL autocomplete share.,schema agent
-note_003,2024-06-03T09:15:00.000Z,Storage backends,Default is Vercel Blob via files-sdk. R2 and local ./data are also supported.,storage vercel

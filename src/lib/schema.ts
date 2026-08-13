@@ -6,65 +6,75 @@ export function storagePrefix(): string {
 }
 
 export function notesKey(): string {
-  return `${storagePrefix()}/notes.csv`;
+  return `${storagePrefix()}/notes.json`;
 }
-
-export function catalogKey(): string {
-  return `${storagePrefix()}/catalog.json`;
-}
-
-export const NOTES_HEADER = "id,created_at,title,body,tags";
-
-export const SEED_NOTES = `${NOTES_HEADER}
-note_001,2024-06-01T10:00:00.000Z,Welcome,Agent Files stores durable state as CSV files in object storage and queries them with DuckDB.,intro template
-note_002,2024-06-02T14:30:00.000Z,Schema catalog,catalog.json holds human descriptions agents and SQL autocomplete share.,schema agent
-note_003,2024-06-03T09:15:00.000Z,Storage backends,Default is Vercel Blob via files-sdk. R2 and local ./data are also supported.,storage vercel
-`;
-
-export const SEED_CATALOG = JSON.stringify(
-  {
-    schemaVersion: 1,
-    tables: {
-      notes: {
-        description:
-          "Free-form workspace notes. Append-only ledger of ideas and status updates.",
-        columns: {
-          id: "Unique note id (string).",
-          created_at: "ISO timestamp when the note was created.",
-          title: "Short title.",
-          body: "Note body text.",
-          tags: "Space-separated tags.",
-        },
-        joins: [],
-      },
-    },
-  },
-  null,
-  2,
-);
-
-export type CatalogSidecar = {
-  schemaVersion?: number;
-  tables?: Record<
-    string,
-    {
-      description?: string;
-      columns?: Record<string, string>;
-      joins?: string[];
-    }
-  >;
-};
 
 export type Note = {
   id: string;
   created_at: string;
+  updated_at: string;
   title: string;
   body: string;
-  tags: string;
+  tags: string[];
+};
+
+export type NotesFile = {
+  schemaVersion: 1;
+  notes: Note[];
 };
 
 export type NewNoteInput = {
   title: string;
   body: string;
-  tags?: string;
+  tags?: string[] | string;
 };
+
+export type UpdateNoteInput = {
+  id: string;
+  title?: string;
+  body?: string;
+  tags?: string[] | string;
+};
+
+export const EMPTY_NOTES: NotesFile = { schemaVersion: 1, notes: [] };
+
+export const SEED_NOTES: NotesFile = {
+  schemaVersion: 1,
+  notes: [
+    {
+      id: "note_001",
+      created_at: "2024-06-01T10:00:00.000Z",
+      updated_at: "2024-06-01T10:00:00.000Z",
+      title: "Welcome",
+      body: "Agent Files stores durable state as JSON files in object storage.",
+      tags: ["intro", "template"],
+    },
+    {
+      id: "note_002",
+      created_at: "2024-06-02T14:30:00.000Z",
+      updated_at: "2024-06-02T14:30:00.000Z",
+      title: "Domain tools",
+      body: "The companion uses list_notes / get_note / add_note / update_note — not SQL.",
+      tags: ["agent"],
+    },
+    {
+      id: "note_003",
+      created_at: "2024-06-03T09:15:00.000Z",
+      updated_at: "2024-06-03T09:15:00.000Z",
+      title: "Storage backends",
+      body: "Default is Vercel Blob via files-sdk. R2 and local ./data are supported too.",
+      tags: ["storage", "vercel"],
+    },
+  ],
+};
+
+export function normalizeTags(tags?: string[] | string): string[] {
+  if (tags == null) return [];
+  if (Array.isArray(tags)) {
+    return tags.map((t) => String(t).trim()).filter(Boolean);
+  }
+  return String(tags)
+    .split(/[\s,]+/)
+    .map((t) => t.trim())
+    .filter(Boolean);
+}

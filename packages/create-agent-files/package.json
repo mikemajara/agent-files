@@ -1,7 +1,7 @@
 {
   "name": "create-agent-files",
-  "version": "0.1.0",
-  "description": "Scaffold an Agent Files app (Eve + files-sdk + DuckDB)",
+  "version": "0.1.1",
+  "description": "Scaffold an Agent Files app (Eve + files-sdk + JSON state)",
   "type": "module",
   "bin": {
     "create-agent-files": "./bin/create-agent-files.js"
@@ -23,7 +23,7 @@
   "keywords": [
     "eve",
     "vercel",
-    "duckdb",
+    "json",
     "files-sdk",
     "template",
     "agent"
