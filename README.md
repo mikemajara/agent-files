@@ -10,7 +10,7 @@ The maintained mission and related-work notes are in [Agent-structure](https://a
 
 ## Validate a package
 
-With Node.js and npm, install the locked dependencies once using `npm ci --ignore-scripts`. Then run `npm run validate -- examples/standalone` or replace that directory with your own package. Validation uses the bundled schemas and works offline once dependencies are installed. Add `--json` for machine-readable results. Exit codes: `0` valid, `1` invalid package, `2` invocation or internal error. Run `npm test` to check the valid example and controlled failure cases.
+With Node.js and npm, install the locked dependencies once using `npm ci --ignore-scripts`. Then run `npm run validate -- examples/standalone` or replace that directory with your own package. Validation uses the bundled schemas and works offline once dependencies are installed. For machine-readable results without npm’s banner, run `node bin/agent-files.cjs validate examples/standalone --json`. The validator checks local Markdown link targets without opening external links. Exit codes: `0` valid, `1` invalid package, `2` invocation or internal error. Run `npm test` to check the valid example and controlled failure cases.
 
 Read [AGENTS.md](AGENTS.md) and [.mstack/memory.md](.mstack/memory.md). Mstack 0.2.0 under `.agents/skills/` and canonical filesystem stories under `.mstack/issues/` are authoring materials, separate from portable definitions.
 

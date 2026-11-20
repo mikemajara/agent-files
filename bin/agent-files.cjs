@@ -4,6 +4,11 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const Ajv = require('ajv/dist/2020').default;
+const MarkdownIt = require('markdown-it');
+const markdown = new MarkdownIt();
+// Inspect destinations, including file URLs normally suppressed by the renderer.
+// Tokens are never rendered or executed.
+markdown.validateLink = () => true;
 const versions = new Set(['0.1']);
 const kinds = { agents: 'agent', skills: 'skill', tools: 'tool', routines: 'routine' };
 const filenames = { agents: 'agent.json', skills: 'SKILL.md', tools: 'tool.json', routines: 'routine.json' };
@@ -103,6 +108,28 @@ function validatePackage(dir) {
     }
   }
   for (const {id,target,file,field} of refs) if (!index[target].has(id)) add('dangling_reference',file,`No matching resource in ${target}/.`,field);
+  for (const [rel,type] of files) {
+    if (type !== 'file' || !/\.md$/iu.test(rel)) continue;
+    let text;
+    try { text = new TextDecoder('utf-8', {fatal:true}).decode(fs.readFileSync(local(rel))); }
+    catch { add('unreadable',rel,'Cannot read this Markdown file as UTF-8.'); continue; }
+    for (const block of markdown.parse(text, {})) {
+      for (const token of block.children ?? []) {
+        const destination = token.type === 'link_open' ? token.attrGet('href') : token.type === 'image' ? token.attrGet('src') : null;
+        if (!destination || destination.startsWith('#') || destination.startsWith('//')) continue;
+        const scheme = /^[a-z][a-z\d+.-]*:/iu.exec(destination)?.[0];
+        if (scheme && scheme.length > 2 && scheme.toLowerCase() !== 'file:') continue;
+        let target;
+        try { target = decodeURIComponent(destination.split(/[?#]/u, 1)[0]); }
+        catch { add('invalid_markdown_link',rel,'Malformed local Markdown link.'); continue; }
+        if (!target) continue;
+        const resolved = path.posix.normalize(path.posix.join(path.posix.dirname(rel),target)).replace(/\/$/u,'') || '.';
+        if (scheme || target.startsWith('/') || /[\\\x00-\x1f\x7f]/u.test(target) || resolved === '..' || resolved.startsWith('../')) {
+          add('invalid_markdown_link',rel,'Local Markdown link must stay inside the package.');
+        } else if (!files.has(resolved)) add('dangling_markdown_link',rel,`Local Markdown target not found: ${JSON.stringify(resolved)}.`);
+      }
+    }
+  }
   return {valid:errors.length === 0, errors};
 }
 

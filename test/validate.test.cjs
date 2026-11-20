@@ -30,6 +30,9 @@ const cases = [
   ['dangling_reference',coordinator,p=>mutate(p,coordinator,d=>d.skills=['unknown']),'/skills/0'],
   ['invalid_file_reference',coordinator,p=>mutate(p,coordinator,d=>d.instructions='../../outside.md'),'/instructions'],
   ['symlink','outside',p=>fs.symlinkSync('..',path.join(p,'outside'),'dir')],
+  ['dangling_markdown_link','skills/voice/SKILL.md',p=>fs.unlinkSync(path.join(p,'skills/voice/references/voice-casual.md'))],
+  ['invalid_markdown_link','skills/voice/SKILL.md',p=>fs.appendFileSync(path.join(p,'skills/voice/SKILL.md'),'\n[escape](../../../outside.md)\n')],
+  ['invalid_markdown_link','skills/voice/SKILL.md',p=>fs.appendFileSync(path.join(p,'skills/voice/SKILL.md'),'\n[escape]: file:///outside.md\n\n[x][escape]\n')],
 ];
 for (const [code,file,change,pointer] of cases) test(code,t=>{
   const root = fixture(t);
