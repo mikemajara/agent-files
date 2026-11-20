@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "routine",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "not": {
+        "pattern": "[^a-z0-9-]"
+      }
+    },
+    "trigger": {
+      "type": "string",
+      "minLength": 1
+    },
+    "prompt": {
+      "const": "prompt.md"
+    },
+    "participants": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+        "not": {
+          "pattern": "[^a-z0-9-]"
+        }
+      },
+      "uniqueItems": true,
+      "minItems": 1
+    },
+    "result": {
+      "type": "string",
+      "minLength": 1
+    },
+    "skills": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+        "not": {
+          "pattern": "[^a-z0-9-]"
+        }
+      },
+      "uniqueItems": true,
+      "minItems": 0
+    }
+  },
+  "required": [
+    "id",
+    "trigger",
+    "prompt",
+    "participants",
+    "result"
+  ],
+  "additionalProperties": false
+}
