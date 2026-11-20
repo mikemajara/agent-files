@@ -1,0 +1,82 @@
+[
+  {
+    "label": "type",
+    "description": "The kind of change requested.",
+    "children": [
+      {
+        "label": "feat",
+        "description": "New behavior, capability or supported workflow."
+      },
+      {
+        "label": "fix",
+        "description": "Correction to broken, incorrect or regressed behavior."
+      },
+      {
+        "label": "nit",
+        "description": "Small polish, copy adjustment or low-risk cleanup."
+      }
+    ]
+  },
+  {
+    "label": "priority",
+    "description": "The relative importance and urgency of the work.",
+    "children": [
+      {
+        "label": "high",
+        "description": "Needed soon, blocks other work or materially affects core behavior."
+      },
+      {
+        "label": "medium",
+        "description": "Valuable, but not urgent or blocking."
+      },
+      {
+        "label": "low",
+        "description": "Nice-to-have, opportunistic or exploratory."
+      }
+    ]
+  },
+  {
+    "label": "phase",
+    "description": "The current stage of work; lifecycle and phase contracts define its gates.",
+    "children": [
+      {
+        "label": "research",
+        "description": "Establish facts needed to shape a testable specification."
+      },
+      {
+        "label": "refinement",
+        "description": "Define scope, acceptance criteria and verification scenarios."
+      },
+      {
+        "label": "implementation",
+        "description": "Implement the features the specification describes."
+      },
+      {
+        "label": "qa",
+        "description": "Independently judge the change against the specification using evidence for the tested commit."
+      }
+    ]
+  },
+  {
+    "label": "status",
+    "description": "The work's availability or activity, separate from its phase.",
+    "children": [
+      {
+        "label": "open",
+        "description": "Available and not claimed."
+      },
+      {
+        "label": "doing",
+        "description": "Work is actively in progress in the current phase."
+      },
+      {
+        "label": "blocked",
+        "description": "The current phase needs unavailable input, access or an external decision; record the missing prerequisite and resume condition."
+      },
+      {
+        "label": "duplicate",
+        "description": "Tracks the same outcome as another work item."
+      }
+    ]
+  }
+]
