@@ -14,6 +14,10 @@ With Node.js and npm, install the locked dependencies once using `npm ci --ignor
 
 Read [AGENTS.md](AGENTS.md) and [.mstack/memory.md](.mstack/memory.md). Mstack 0.2.0 under `.agents/skills/` and canonical filesystem stories under `.mstack/issues/` are authoring materials, separate from portable definitions.
 
+## Back up an OpenBot export
+
+Use the [OpenBot backup skill](skills/openbot-backup/SKILL.md) with an already sanitized OpenBot instance transfer v1. It writes a new portable package, reports omissions, and emits a SHA-256 receipt after checking the saved files. Keep that receipt in a separate trusted place. This backs up the supported agent definitions, not a running OpenBot installation.
+
 ## First version
 
 1. [Standalone format and schemas](.mstack/issues/1.md).
