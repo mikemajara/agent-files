@@ -6,7 +6,11 @@ Describe standalone agents in portable folders, including instructions, memories
 
 ## Current stage
 
-The maintained mission and related-work notes are in [Agent-structure](https://app.notion.com/p/3a5e06b059c48338ae5981adfd0de72c). Existing projects offer related ideas but do not establish the simple descriptive format wanted here. Agent Definition Format is a proposed descriptive name, not an adopted brand. No product format or example has been implemented.
+The maintained mission and related-work notes are in [Agent-structure](https://app.notion.com/p/3a5e06b059c48338ae5981adfd0de72c). Existing projects offer related ideas but do not establish the simple descriptive format wanted here. Agent Definition Format is a proposed descriptive name, not an adopted brand. See the [0.1 format](SPEC.md) and the [two-agent example](examples/README.md).
+
+## Validate a package
+
+With Node.js and npm, install the locked dependencies once using `npm ci --ignore-scripts`. Then run `npm run validate -- examples/standalone` or replace that directory with your own package. Validation uses the bundled schemas and works offline once dependencies are installed. Add `--json` for machine-readable results. Exit codes: `0` valid, `1` invalid package, `2` invocation or internal error. Run `npm test` to check the valid example and controlled failure cases.
 
 Read [AGENTS.md](AGENTS.md) and [.mstack/memory.md](.mstack/memory.md). Mstack 0.2.0 under `.agents/skills/` and canonical filesystem stories under `.mstack/issues/` are authoring materials, separate from portable definitions.
 
@@ -24,4 +28,4 @@ Read [AGENTS.md](AGENTS.md) and [.mstack/memory.md](.mstack/memory.md). Mstack 0
 7. [Routine and collaboration descriptions](.mstack/issues/5.md).
 8. [A second-domain example](.mstack/issues/7.md).
 
-All stories remain open in refinement. Changes are planning and descriptive scope only; no implementation has been dispatched.
+See the story records for current delivery status.
