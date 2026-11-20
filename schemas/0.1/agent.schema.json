@@ -15,12 +15,10 @@
       "const": "instructions.md"
     },
     "name": {
-      "type": "string",
-      "minLength": 1
+      "type": "string"
     },
     "model": {
-      "type": "string",
-      "minLength": 1
+      "type": "string"
     },
     "memory": {
       "const": "memory.json"
