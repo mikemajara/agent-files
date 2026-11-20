@@ -1,5 +1,9 @@
 # Project continuity
 
+## v0.1 delivery
+
+The [format and schemas](issues/1.md), [two-agent example](issues/3.md), [offline validator](issues/6.md), and [OpenBot backup skill](issues/8.md) are merged after independent QA. The backup was exercised with synthetic transfer v1 fixtures, not a real export. Preserve the trusted manifest digest separately from the backup. The remaining source inventory, integration and routine refinements, and second-domain example are follow-up work, not prerequisites for v0.1.
+
 ## 2026-11-20 — Agent Files v0.1 setup
 
 [Miguel’s Agent Files repository](https://github.com/mikemajara/agent-files) is the private destination for the spec, docs, versioned schemas, validator and companion backup skill; no npm publication is required. The local issue store and matching mstack skills were migrated to `/Users/miguel/src/github/mikemajara/agent-files`, now the sole authoritative checkout. The former `agents-work` checkout is retained as a planning snapshot. No commits or pushes.
