@@ -1,0 +1,12 @@
+{
+  "id": "researcher",
+  "instructions": "instructions.md",
+  "skills": [
+    "research",
+    "voice"
+  ],
+  "tools": [
+    "search"
+  ],
+  "memory": "memory.json"
+}

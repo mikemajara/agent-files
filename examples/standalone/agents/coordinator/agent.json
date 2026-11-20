@@ -1,0 +1,13 @@
+{
+  "id": "coordinator",
+  "instructions": "instructions.md",
+  "skills": [
+    "research"
+  ],
+  "tools": [
+    "search"
+  ],
+  "routines": [
+    "review"
+  ]
+}
