@@ -2,8 +2,7 @@
   "id": "coordinator",
   "instructions": "instructions.md",
   "skills": [
-    "research",
-    "voice"
+    "research"
   ],
   "tools": [
     "search"
