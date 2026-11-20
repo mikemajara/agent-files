@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "agent",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "not": {
+        "pattern": "[^a-z0-9-]"
+      }
+    },
+    "instructions": {
+      "const": "instructions.md"
+    },
+    "name": {
+      "type": "string"
+    },
+    "model": {
+      "type": "string"
+    },
+    "memory": {
+      "const": "memory.json"
+    },
+    "skills": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+        "not": {
+          "pattern": "[^a-z0-9-]"
+        }
+      },
+      "uniqueItems": true,
+      "minItems": 0
+    },
+    "tools": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+        "not": {
+          "pattern": "[^a-z0-9-]"
+        }
+      },
+      "uniqueItems": true,
+      "minItems": 0
+    },
+    "routines": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+        "not": {
+          "pattern": "[^a-z0-9-]"
+        }
+      },
+      "uniqueItems": true,
+      "minItems": 0
+    }
+  },
+  "required": [
+    "id",
+    "instructions"
+  ],
+  "additionalProperties": false
+}
