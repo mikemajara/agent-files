@@ -42,8 +42,16 @@ function verify(input,expected) {
     if (!fs.lstatSync(file).isFile()) throw new Error('Manifest is not a regular file.');
     const bytes=fs.readFileSync(file);
     if (digest(bytes)!==expected) return {integrity:'failed',reason:'Manifest digest does not match the trusted receipt.'};
-    const actual=JSON.stringify(makeManifest(dir),null,2)+'\n';
-    if (!bytes.equals(Buffer.from(actual))) return {integrity:'failed',reason:'Manifest or payload membership/content differs.'};
+    const raw=new TextDecoder('utf-8',{fatal:true}).decode(bytes);
+    const declared=JSON.parse(raw);
+    if (!raw.endsWith('\n') || declared?.version!==1 || !Array.isArray(declared.files) || Object.keys(declared).length!==2) {
+      return {integrity:'failed',reason:'Expected a version 1 UTF-8 JSON manifest ending with LF.'};
+    }
+    const actual=makeManifest(dir).files;
+    // Compare against paths discovered on disk, never open a path from the manifest.
+    const matches=declared.files.length===actual.length && declared.files.every((entry,i)=>
+      entry && Object.keys(entry).length===2 && entry.path===actual[i].path && entry.sha256===actual[i].sha256);
+    if (!matches) return {integrity:'failed',reason:'Manifest or payload membership/content differs.'};
     return {integrity:'passed'};
   } catch {return {integrity:'failed',reason:'Cannot safely read the manifest or payload.'};}
 }
@@ -102,8 +110,11 @@ function convert(source,destination) {
     if (!agent || !text(agent.description)) {omit(row.omissions,'Missing readable agent description.');continue;}
     const id=unique(slug(agent.name,`agent-${i+1}`),agentIds), dir=`agents/${id}`;
     const config={id,instructions:'instructions.md'};
-    if (text(agent.name)) config.name=agent.name;
-    if (text(agent.model)) config.model=agent.model;
+    for (const field of ['name','model']) {
+      if (!Object.hasOwn(agent,field)) continue;
+      if (typeof agent[field]==='string') config[field]=agent[field];
+      else omit(row.omissions,`Unsupported ${field} value; expected a string.`);
+    }
     save(`${dir}/instructions.md`,agent.description+'\n');
     if (agent.files != null) omit(row.omissions,'Agent file bundle is not supported.');
     if (agent.memories != null && !Array.isArray(agent.memories)) omit(row.omissions,'Unsupported memory list.');

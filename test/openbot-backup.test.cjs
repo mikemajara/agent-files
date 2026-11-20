@@ -73,6 +73,32 @@ for (const kind of ['addition','deletion','modification','manifest substitution'
   }
   assert.equal(verify(out,manifestDigest).integrity,'failed');
 });
+test('unsupported model is reported without copying its value',t=>{
+  const {source,out}=fixture(t);
+  const transfer=path.join(source,'openbot-transfer.json');
+  const data=JSON.parse(fs.readFileSync(transfer));
+  data.agents[0].model={label:'not-a-portable-string'};
+  fs.writeFileSync(transfer,JSON.stringify(data));
+  const result=spawnSync(process.execPath,[cli,'backup',source,out],{encoding:'utf8'});
+  assert.equal(result.status,1);
+  const report=JSON.parse(result.stdout);
+  assert.equal(report.complete,false);
+  assert.equal(report.agents[0].status,'captured');
+  assert.match(report.agents[0].omissions.join(' '),/Unsupported model/);
+  assert(!Object.hasOwn(JSON.parse(fs.readFileSync(path.join(out,'agents/coordinator/agent.json'))),'model'));
+});
+test('trusted receipt allows different formatting, not unordered or duplicate entries',t=>{
+  const {source,out}=fixture(t);const report=convert(source,out);
+  const file=path.join(out,'backup-manifest.json');
+  const parsed=JSON.parse(fs.readFileSync(file));
+  const replace=(value,lf='\n')=>{const bytes=JSON.stringify(value)+lf;fs.writeFileSync(file,bytes);return hash(bytes);};
+  const compact=replace(parsed);
+  assert.equal(verify(out,compact).integrity,'passed');
+  assert.equal(verify(out,report.manifestDigest).integrity,'failed');
+  assert.equal(verify(out,replace(parsed,'')).integrity,'failed');
+  assert.equal(verify(out,replace({...parsed,files:[...parsed.files].reverse()})).integrity,'failed');
+  assert.equal(verify(out,replace({...parsed,files:[...parsed.files,parsed.files[0]]})).integrity,'failed');
+});
 test('destination inside source is rejected before writing',t=>{
   const {source}=fixture(t);const target=path.join(source,'backup');
   assert.throws(()=>convert(source,target),/outside/);assert(!fs.existsSync(target));
