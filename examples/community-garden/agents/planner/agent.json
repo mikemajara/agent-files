@@ -1,0 +1,14 @@
+{
+  "id": "planner",
+  "instructions": "instructions.md",
+  "skills": [
+    "garden-notes"
+  ],
+  "tools": [
+    "plot-log"
+  ],
+  "routines": [
+    "weekly-plan"
+  ],
+  "memory": "memory.json"
+}
