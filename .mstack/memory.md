@@ -2,7 +2,7 @@
 
 ## v0.1 delivery
 
-The [format and schemas](issues/1.md), [two-agent example](issues/3.md), [offline validator](issues/6.md), and [OpenBot backup skill](issues/8.md) are merged after independent QA. The backup was exercised with synthetic transfer v1 fixtures, not a real export. Preserve the trusted manifest digest separately from the backup. The remaining source inventory, integration and routine refinements, and second-domain example are follow-up work, not prerequisites for v0.1.
+The [format and schemas](issues/1.md), [two-agent example](issues/3.md), [offline validator](issues/6.md), and [OpenBot backup skill](issues/8.md) are merged after independent QA. The backup was exercised with synthetic transfer v1 fixtures, not a real export. Preserve the trusted manifest digest separately from the backup. Integration and routine refinements and the second-domain example were follow-up work, not prerequisites for v0.1. Source inventory is not planned for the spec repository. Real environment trials belong in a separate private workspace or repository.
 
 ## 2026-11-20 — Agent Files v0.1 setup
 
@@ -38,7 +38,7 @@ The handoff has now occurred in the Agent structure channel: Preston owns produc
 
 ## 2026-11-16 — Product planning review
 
-Reviewed all seven drafts against the maintained mission. Reusable role preparation and baseline knowledge were underrepresented; the existing [layout](issues/1.md), [source inventory](issues/2.md), [role/roster](issues/3.md) and downstream drafts now cover them explicitly. Setup preview must expose effective preparation, inaccessible knowledge, updates and destination conflicts; runtime mappings stay outside portable definitions. All seven remain open in refinement.
+Reviewed all seven drafts against the maintained mission. Reusable role preparation and baseline knowledge were underrepresented; the existing [layout](issues/1.md), [role/roster](issues/3.md) and downstream drafts now cover them explicitly. Setup preview must expose effective preparation, inaccessible knowledge, updates and destination conflicts; runtime mappings stay outside portable definitions. All seven remain open in refinement.
 
 Initial slice selection (subsequently reopened in discussion): prove the project-manager role and Preston using one maintained knowledge resource and one reconciled shared skill, plus an offline setup preview and a clearly labeled second-agent fixture to demonstrate reuse. Use the existing story records for this scope; the full roster, live reconstruction and routines follow later. Next settle the exact baseline content, composition rule and preview contract before implementation readiness. Selection of this refinement slice does not authorize implementation. No target-app compatibility is established.
 
@@ -46,4 +46,4 @@ Initial slice selection (subsequently reopened in discussion): prove the project
 
 Miguel questioned the separate role layer after selecting the initial slice. The latest agreed approach is to walk through Preston concretely before settling structure; the earlier selection is not approval of a role schema or code generation. Devin is available in the channel once setup is aligned.
 
-Recorded the focused Kit/Slack source and consumer inspection in [source reconciliation](issues/2.md). The global Kit skill is a symlink to the untracked shared source; Skillian's local OpenBot copy matches it byte for byte. Mai's runtime tool and two skill procedures overlap only partly and use different host interfaces. Preserve the runtime and all source edits; do not add another duplicate skill. Review actual consumers before proposing consolidation; deleting sources or registrations requires Miguel's approval. Remote heads and deployed availability remain unverified. No product implementation has started.
+The source reconciliation investigation was outside the spec. No source repositories or registrations were changed.
