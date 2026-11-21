@@ -27,9 +27,10 @@ Use the [OpenBot backup skill](skills/openbot-backup/SKILL.md) with an already s
 
 ## Follow-up backlog
 
-5. [Source inventory and reconciliation](.mstack/issues/2.md).
-6. [Tools and integrations](.mstack/issues/4.md).
-7. [Routine and collaboration descriptions](.mstack/issues/5.md).
-8. [A second-domain example](.mstack/issues/7.md).
+5. [Tools and integrations](.mstack/issues/4.md).
+6. [Routine and collaboration descriptions](.mstack/issues/5.md).
+7. [A second-domain example](.mstack/issues/7.md).
+
+Keep real agent configurations and environment-specific trials in a separate private workspace or repository. Bring back only non-sensitive findings about the format.
 
 See the story records for current delivery status.
