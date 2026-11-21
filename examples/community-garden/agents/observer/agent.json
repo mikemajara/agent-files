@@ -1,0 +1,13 @@
+{
+  "id": "observer",
+  "instructions": "instructions.md",
+  "skills": [
+    "garden-notes"
+  ],
+  "tools": [
+    "plot-log"
+  ],
+  "routines": [
+    "weekly-plan"
+  ]
+}
