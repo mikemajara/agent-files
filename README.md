@@ -10,14 +10,14 @@ Agent Files is a lightweight convention for describing an agent's identity, inst
 agents/<agent-id>/
   agent.json       # identity and references
   instructions.md  # standing guidance
-  memories.md      # optional; separate for private sharing decisions
+  memories.md      # kept separate so it can be excluded
   tools.md         # capabilities and integrations
   routines.md      # triggers, participants, and prompts
   gaps.md          # what wasn't captured and why
 skills/<skill-name>/SKILL.md  # shared across agents
 ```
 
-Use one directory under `agents/` per agent. Keep reusable skills in `skills/` and reference them from `agent.json`.
+Use one directory under `agents/` per agent. Keep reusable skills in `skills/` and reference them from `agent.json`. Mark verified-empty concepts explicitly and log unavailable or excluded concepts in `gaps.md`.
 
 ## Use the skill
 
