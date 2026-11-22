@@ -1,36 +1,13 @@
 # Agent Files
 
-Describe standalone agents in portable folders, including instructions, memories, skills, tools/integrations and routines. Agent-owned memories travel with the agent; shared resources are referenced, not copied per agent. Teams, credentials, runtime history, harnesses and execution stay out of v0.1.
+**Define and share agents without platform lock-in.**
 
-[Agent Files](https://github.com/mikemajara/agent-files) is the home for the spec, versioned schemas, docs, validator and companion backup skill. This checkout holds the authoritative local planning backlog.
+Agent Files is a lightly opinionated, harness-agnostic convention for the six concepts every agent platform shares—identity, instructions, memories, skills, tools/integrations, and routines—paired with a reusable agent skill (`SKILL.md`) that teaches any agent how to read and write the format.
 
-## Current stage
+It is not a deterministic converter or runtime protocol. The agent itself acts as the adapter: an agent in OpenBot, GrokBot, or a CLI harness reads the skill to back itself up (or a set of agents) into a repository, records explicit gaps for anything its harness hides, and lets another agent in a different harness map those files into its own native structure.
 
-The maintained mission and related-work notes are in [Agent-structure](https://app.notion.com/p/3a5e06b059c48338ae5981adfd0de72c). Existing projects offer related ideas but do not establish the simple descriptive format wanted here. Agent Definition Format is a proposed descriptive name, not an adopted brand. See the [0.1 format](SPEC.md) and the [two-agent example](examples/README.md).
+## Current work
 
-## Validate a package
-
-With Node.js and npm, install the locked dependencies once using `npm ci --ignore-scripts`. Then run `npm run validate -- examples/standalone` or replace that directory with your own package. Validation uses the bundled schemas and works offline once dependencies are installed. For machine-readable results without npm’s banner, run `node bin/agent-files.cjs validate examples/standalone --json`. The validator checks local Markdown link targets without opening external links. Exit codes: `0` valid, `1` invalid package, `2` invocation or internal error. Run `npm test` to check the valid example and controlled failure cases.
-
-Read [AGENTS.md](AGENTS.md) and [.mstack/memory.md](.mstack/memory.md). Mstack 0.2.0 under `.agents/skills/` and canonical filesystem stories under `.mstack/issues/` are authoring materials, separate from portable definitions.
-
-## Back up an OpenBot export
-
-Use the [OpenBot backup skill](skills/openbot-backup/SKILL.md) with an already sanitized OpenBot instance transfer v1. It writes a new portable package, reports omissions, and emits a SHA-256 receipt after checking the saved files. Keep that receipt in a separate trusted place. This backs up the supported agent definitions, not a running OpenBot installation.
-
-## First version
-
-1. [Standalone format and schemas](.mstack/issues/1.md).
-2. [Two standalone agents sharing resources](.mstack/issues/3.md).
-3. [Offline validation and independent readability](.mstack/issues/6.md).
-4. [Backup skill and tamper verification](.mstack/issues/8.md).
-
-## Follow-up backlog
-
-5. [Tools and integrations](.mstack/issues/4.md).
-6. [Routine and collaboration descriptions](.mstack/issues/5.md).
-7. [A second-domain example](.mstack/issues/7.md).
-
-Keep real agent configurations and environment-specific trials in a separate private workspace or repository. Bring back only non-sensitive findings about the format.
-
-See the story records for current delivery status.
+- Active specification story: [`.mstack/issues/9.md`](.mstack/issues/9.md)
+- Project continuity: [`.mstack/memory.md`](.mstack/memory.md)
+- Repository rules: [`AGENTS.md`](AGENTS.md)

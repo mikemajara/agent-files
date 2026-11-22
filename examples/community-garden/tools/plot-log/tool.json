@@ -1,4 +1,0 @@
-{
-  "id": "plot-log",
-  "description": "Read recent community garden plot observations, by plot label and date, to prepare the weekly plan. Read only; do not modify the plot log."
-}

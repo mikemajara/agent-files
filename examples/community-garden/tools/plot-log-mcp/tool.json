@@ -1,8 +1,0 @@
-{
-  "id": "plot-log-mcp",
-  "description": "Read recent community garden plot observations, by plot label and date, to prepare the weekly plan. Read only; do not modify the plot log.",
-  "config": {
-    "mechanism": "mcp",
-    "endpoint": "https://garden.example.invalid/mcp"
-  }
-}
