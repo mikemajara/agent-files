@@ -21,7 +21,7 @@ Use one directory under `agents/` per agent. Keep reusable skills in `skills/` a
 
 ## Use the skill
 
-Point your agent at `skills/agent-files/SKILL.md` in this repository and tell it what to capture or where to recreate an agent. For example:
+Point your agent at [`skills/agent-files/SKILL.md`](skills/agent-files/SKILL.md) in this repository and tell it what to capture or where to recreate an agent. For example:
 
 **Back up:** “Read `skills/agent-files/SKILL.md` and save your Agent Files to `./my-agent-backup/`. Leave out memories and record anything you couldn't capture.”
 
