@@ -21,16 +21,18 @@ Use one directory under `agents/` per agent. Keep reusable skills in `skills/` a
 
 ## Use the skill
 
-Point your agent at [`skills/agent-files/SKILL.md`](skills/agent-files/SKILL.md) in this repository and tell it what to capture or where to recreate an agent. For example:
+Point your agent at [`skills/agent-files/SKILL.md`](skills/agent-files/SKILL.md) and tell it what to capture or where to recreate an agent.
 
-**Back up:** “Read `skills/agent-files/SKILL.md` and save your Agent Files to `./my-agent-backup/`. Leave out memories and record anything you couldn't capture.”
+**Never write backups inside the `agent-files` repository.** It holds the spec and skill, not backups. Use a separate local folder outside this repository or a separate backup repository.
 
-**Recreate:** “Read `skills/agent-files/SKILL.md` and recreate the agent from `./my-agent-backup/` in this platform. Report what doesn't map and leave routines inactive.”
+**Back up:** “Read the Agent Files skill and save your backup to a new local folder outside the `agent-files` checkout. Leave out memories and record anything you couldn't capture.”
+
+**Recreate:** “Read the Agent Files skill and recreate the agent from my backup folder on this platform. Report what doesn't map and leave routines inactive.”
 
 Never include secrets or runtime data. Review the backup and keep personal memories out before publishing.
 
 ## Current work
 
-- Active specification story: [`.mstack/issues/9.md`](.mstack/issues/9.md)
+- Active story: [Story 10 — Skill scope and backup guardrails](.mstack/issues/10.md)
 - Project continuity: [`.mstack/memory.md`](.mstack/memory.md)
 - Repository rules: [`AGENTS.md`](AGENTS.md)
