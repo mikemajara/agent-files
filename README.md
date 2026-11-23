@@ -10,8 +10,8 @@ Agent Files is a lightweight convention for describing an agent's identity, inst
 agents/<agent-id>/
   agent.json       # identity and references
   instructions.md  # standing guidance
-  memories.md      # kept separate so it can be excluded // COMMENT: what does "separate so it can be excluded" mean?
-  tools.md         # capabilities and integrations // COMMENT: "does tools have to be an md file, or can we think of a deterministic json structure that helps capture links, sources, and so on?" the same applies to skills, what if this particular agent is using some skills? and are we validating that the skills are present in the repo or have a valid link to gh or similar?" Same applies to routines, and could potentially apply to memories.md
+  memories.md      # kept separate so it can be excluded <!-- COMMENT: what does "separate so it can be excluded" mean? -->
+  tools.md         # capabilities and integrations <!-- COMMENT: "does tools have to be an md file, or can we think of a deterministic json structure that helps capture links, sources, and so on?" the same applies to skills, what if this particular agent is using some skills? and are we validating that the skills are present in the repo or have a valid link to gh or similar?" Same applies to routines, and could potentially apply to memories.md -->
   routines.md      # triggers, participants, and prompts
   gaps.md          # what wasn't captured and why
 skills/<skill-name>/SKILL.md  # shared across agents
@@ -25,7 +25,7 @@ Point your agent at [`skills/agent-files/SKILL.md`](skills/agent-files/SKILL.md)
 
 **Never write backups inside the `agent-files` repository.** It holds the spec and skill, not backups. Use a separate local folder outside this repository or a separate backup repository.
 
-// COMMENT: This line above was specified cos i'm testing in the same account as the skill and agent-files repo are, there shouldn't beb further confusion when anyone else uses it. so maybe we don't need to be that explicit. or we can be prescriptive about the agent having to decide where to capture the agents
+<!-- COMMENT: This line above was specified cos i'm testing in the same account as the skill and agent-files repo are, there shouldn't beb further confusion when anyone else uses it. so maybe we don't need to be that explicit. or we can be prescriptive about the agent having to decide where to capture the agents -->
 
 **Back up:** “Read the Agent Files skill and save your backup to a new local folder outside the `agent-files` checkout. Leave out memories and record anything you couldn't capture.”
 
