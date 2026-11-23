@@ -2,7 +2,7 @@
 
 **Define and share agents without platform lock-in.**
 
-Agent Files is a lightweight convention for describing an agent's identity, instructions, memories, skills, tools and integrations, and routines. The agent does the translation: it reads what its current platform exposes, records what it couldn't capture, and writes files another agent can interpret on a different platform. See the [specification](SPEC.md).
+Agent Files is a lightweight convention for describing an agent's identity, instructions, memories, skills, tools and integrations, and routines. The agent using this spec, does the translation adjusting to its harness: it reads what its current platform exposes, records what it couldn't capture, and writes files another agent can interpret on a different platform. See the [specification](SPEC.md).
 
 ## What a backup looks like
 
@@ -10,8 +10,8 @@ Agent Files is a lightweight convention for describing an agent's identity, inst
 agents/<agent-id>/
   agent.json       # identity and references
   instructions.md  # standing guidance
-  memories.md      # kept separate so it can be excluded
-  tools.md         # capabilities and integrations
+  memories.md      # kept separate so it can be excluded // COMMENT: what does "separate so it can be excluded" mean?
+  tools.md         # capabilities and integrations // COMMENT: "does tools have to be an md file, or can we think of a deterministic json structure that helps capture links, sources, and so on?" the same applies to skills, what if this particular agent is using some skills? and are we validating that the skills are present in the repo or have a valid link to gh or similar?" Same applies to routines, and could potentially apply to memories.md
   routines.md      # triggers, participants, and prompts
   gaps.md          # what wasn't captured and why
 skills/<skill-name>/SKILL.md  # shared across agents
