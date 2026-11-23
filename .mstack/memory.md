@@ -21,6 +21,14 @@ Delivered [story 9](issues/9.md) via [PR #8](https://github.com/mikemajara/agent
 - Proven against a real OpenBot agent (Penny) autonomously backing herself up from a single prompt (memories excluded and recorded in `gaps.md`, routines explicitly verified empty, zero secrets) and independently interpreted across harnesses by Quentinn.
 - Standing delivery rule from Miguel: merge PRs and close delivered stories automatically once strict independent QA passes on the tested commit without pausing for manual PR review.
 
+## 2026-11-23 — Story 10 delivered (opt-in global skills + spec-repo guardrail)
+
+Delivered [story 10](issues/10.md) via [PR #9](https://github.com/mikemajara/agent-files/pull/9) (merged at [`72c6781`](https://github.com/mikemajara/agent-files/commit/72c678173705209b6916090ec9d6b517ceb4a88d) after [independent QA passed](https://github.com/mikemajara/agent-files/pull/9#issuecomment-7093567592)):
+
+- Scoped default skill capture in [`skills/agent-files/SKILL.md`](../skills/agent-files/SKILL.md), [`references/cli.md`](../skills/agent-files/references/cli.md), and [`references/openbot.md`](../skills/agent-files/references/openbot.md) to agent-assigned or agent/project-scoped skills; machine-wide/user-global skill libraries are opt-in only when explicitly requested and otherwise recorded in `gaps.md`.
+- Added core-first bulk-capture ordering (so large skill libraries never starve core agent definitions) and an explicit guardrail in [`SKILL.md`](../skills/agent-files/SKILL.md) and [`README.md`](../README.md) forbidding writing backups inside the `agent-files` spec repository itself.
+- Proven on a cold-start Claude Code CLI run completing autonomously in ~20 seconds with zero secrets and an untouched spec repo.
+
 ## Active backlog
 
-No open stories. Next candidate work: real-agent capture/recreation trials in another harness (such as GrokBot or a CLI harness) and additional `references/<harness>.md` lookup notes.
+No open stories. Ready for cold-start testing against `main` in [mikemajara/agent-files](https://github.com/mikemajara/agent-files) (e.g., fresh OpenBot, GrokBot, or CLI agents) and additional `references/<harness>.md` lookup notes as needed.
