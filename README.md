@@ -25,6 +25,8 @@ Point your agent at [`skills/agent-files/SKILL.md`](skills/agent-files/SKILL.md)
 
 **Never write backups inside the `agent-files` repository.** It holds the spec and skill, not backups. Use a separate local folder outside this repository or a separate backup repository.
 
+// COMMENT: This line above was specified cos i'm testing in the same account as the skill and agent-files repo are, there shouldn't beb further confusion when anyone else uses it. so maybe we don't need to be that explicit. or we can be prescriptive about the agent having to decide where to capture the agents
+
 **Back up:** “Read the Agent Files skill and save your backup to a new local folder outside the `agent-files` checkout. Leave out memories and record anything you couldn't capture.”
 
 **Recreate:** “Read the Agent Files skill and recreate the agent from my backup folder on this platform. Report what doesn't map and leave routines inactive.”
