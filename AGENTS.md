@@ -10,12 +10,12 @@
 ## Development workflow
 
 - Use the version-matched [mstack-workflow](.agents/skills/mstack-workflow/SKILL.md), [mstack-tracker](.agents/skills/mstack-tracker/SKILL.md), and, when explicitly coordinating a run, [mstack-orchestrator](.agents/skills/mstack-orchestrator/SKILL.md).
-- Read [.mstack/memory.md](.mstack/memory.md) before project work. Canonical filesystem stories live in `.mstack/issues/` (configured in [.mstack/config.json](.mstack/config.json)).
+- Read [.mstack/memory.md](.mstack/memory.md) before project work. Canonical stories live in [GitHub Issues for `mikemajara/agent-files`](https://github.com/mikemajara/agent-files/issues), as configured in [.mstack/config.json](.mstack/config.json).
 - Development records under `.mstack/` and development skills under `.agents/` are repository authoring material, separate from the Agent Files spec and skill.
 - Do not commit, push, activate routines, or modify external repositories without user authorization.
 
 ## Checks
 
-- Validate `.mstack/config.json`, issue frontmatter, unique issue numbers, workflow labels, and local Markdown links.
-- Verify all three mstack skills under `.agents/skills/` remain present and version-matched.
+- Validate `.mstack/config.json` and local Markdown links, including heading anchors.
+- Verify all three mstack skills under `.agents/skills/` remain present and version-matched at `0.2.0`.
 - Prove the spec and skill against a real agent performing an autonomous backup rather than synthetic fixtures alone.

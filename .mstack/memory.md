@@ -2,7 +2,7 @@
 
 ## 2026-11-22 — Clean-slate reset
 
-Reset `main` in [mikemajara/agent-files](https://github.com/mikemajara/agent-files) to remove the earlier deterministic `openbot-backup` converter, Node validator, versioned JSON schemas, and synthetic examples so they do not pollute future context. Closed historical issue records `1.md`–`8.md` are retained under `.mstack/issues/` for mstack numbering continuity and are superseded by [story 9](issues/9.md).
+Reset `main` in [mikemajara/agent-files](https://github.com/mikemajara/agent-files) to remove the earlier deterministic `openbot-backup` converter, Node validator, versioned JSON schemas, and synthetic examples so they do not pollute future context.
 
 ## Current direction
 
@@ -14,7 +14,7 @@ Reset `main` in [mikemajara/agent-files](https://github.com/mikemajara/agent-fil
 
 ## 2026-11-22 — Story 9 delivered (spec + autonomous agent skill)
 
-Delivered [story 9](issues/9.md) via [PR #8](https://github.com/mikemajara/agent-files/pull/8) (merged at [`9e6bc1f`](https://github.com/mikemajara/agent-files/commit/9e6bc1fbfefd39d3a515417712922b6fbea71704) after [independent QA passed](https://github.com/mikemajara/agent-files/pull/8#issuecomment-7086243861)):
+Delivered story 9 via [PR #8](https://github.com/mikemajara/agent-files/pull/8) (merged at [`9e6bc1f`](https://github.com/mikemajara/agent-files/commit/9e6bc1fbfefd39d3a515417712922b6fbea71704) after [independent QA passed](https://github.com/mikemajara/agent-files/pull/8#issuecomment-7086243861)):
 
 - Shipped [`SPEC.md`](../SPEC.md), [`README.md`](../README.md), [`skills/agent-files/SKILL.md`](../skills/agent-files/SKILL.md), and initial progressive lookup references under `skills/agent-files/references/` (`openbot.md`, `cli.md`).
 - Established a three-state convention for instructions, memories, skills, tools, and routines: **populated** (file + reference), **verified empty** (file + reference with `None (verified empty).` or `"skills": []`), and **unavailable or excluded** (omitted + `gaps.md` entry), so unexplained omissions are never mistaken for empty configurations.
@@ -23,12 +23,17 @@ Delivered [story 9](issues/9.md) via [PR #8](https://github.com/mikemajara/agent
 
 ## 2026-11-23 — Story 10 delivered (opt-in global skills + spec-repo guardrail)
 
-Delivered [story 10](issues/10.md) via [PR #9](https://github.com/mikemajara/agent-files/pull/9) (merged at [`72c6781`](https://github.com/mikemajara/agent-files/commit/72c678173705209b6916090ec9d6b517ceb4a88d) after [independent QA passed](https://github.com/mikemajara/agent-files/pull/9#issuecomment-7093567592)):
+Delivered story 10 via [PR #9](https://github.com/mikemajara/agent-files/pull/9) (merged at [`72c6781`](https://github.com/mikemajara/agent-files/commit/72c678173705209b6916090ec9d6b517ceb4a88d) after [independent QA passed](https://github.com/mikemajara/agent-files/pull/9#issuecomment-7093567592)):
 
 - Scoped default skill capture in [`skills/agent-files/SKILL.md`](../skills/agent-files/SKILL.md), [`references/cli.md`](../skills/agent-files/references/cli.md), and [`references/openbot.md`](../skills/agent-files/references/openbot.md) to agent-assigned or agent/project-scoped skills; machine-wide/user-global skill libraries are opt-in only when explicitly requested and otherwise recorded in `gaps.md`.
 - Added core-first bulk-capture ordering (so large skill libraries never starve core agent definitions) and an explicit guardrail in [`SKILL.md`](../skills/agent-files/SKILL.md) and [`README.md`](../README.md) forbidding writing backups inside the `agent-files` spec repository itself.
 - Proven on a cold-start Claude Code CLI run completing autonomously in ~20 seconds with zero secrets and an untouched spec repo.
 
+## 2026-11-23 — Tracker moved to GitHub Issues
+
+[mstack configuration](config.json) now selects [GitHub Issues](https://github.com/mikemajara/agent-files/issues) as the canonical tracker. The `.mstack/issues/` directory was removed; closed filesystem records remain in Git history.
+
 ## Active backlog
 
-No open stories. Ready for cold-start testing against `main` in [mikemajara/agent-files](https://github.com/mikemajara/agent-files) (e.g., fresh OpenBot, GrokBot, or CLI agents) and additional `references/<harness>.md` lookup notes as needed.
+- [#11 — Structured formats, external skill references, and validation](https://github.com/mikemajara/agent-files/issues/11) (refinement).
+- [#12 — Recurring backup logs and environment/Vault metadata](https://github.com/mikemajara/agent-files/issues/12) (refinement).
