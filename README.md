@@ -31,10 +31,8 @@ Point your agent at [`skills/agent-files/SKILL.md`](skills/agent-files/SKILL.md)
 
 **Recreate:** “Read the Agent Files skill and recreate the agent from my backup folder on this platform. Report what doesn't map and leave routines inactive.”
 
-Never include secrets or runtime data. Review the backup and keep personal memories out before publishing.
+<!-- COMMENT: for Back up and Recreate lines above, we don't have to be so prescriptive and uninformative, we can explain diff use cases and place them in a codeblock that allows users to quickly copy andn paste to their agents. Example 1: back yourself up and X many agents (you elaborate). Example 2: "Keep a running back up routine of agents X, Y and Z in repo github.com/owner/agents, and set up a routine that updates this reporegularly with the latest changes. add a afile to the repo in log format that logs every back up with the changes and latest date to inform about the procedure." -->
 
-## Current work
-
-- Active story: [Story 10 — Skill scope and backup guardrails](.mstack/issues/10.md)
-- Project continuity: [`.mstack/memory.md`](.mstack/memory.md)
-- Repository rules: [`AGENTS.md`](AGENTS.md)
+- Never include secrets or runtime data.
+- Warn if repo is public before exporting any personal data that should be private like memories or facts.
+- Do not export vault data like environment variable keys unless explicitly asked for.
